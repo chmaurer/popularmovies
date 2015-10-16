@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">PopularMovies</string>
+    <string name="action_settings">Settings</string>
+    <string name="sortOrderPopularity">Popularity</string>
+    <string name="sortOrderHighestRating">Vote average</string>
+    <string name="default_key_sort_order">Popularity</string>
+    <string name="key_sort_order" translatable="false">Sort Order</string>
+    <string name="movieTitle">Movie Title:</string>
+    <string name="movieRating">Movie Rating:</string>
+    <string name="movieReleaseDate">Movie Release Date:</string>
+    <string name="movieDescription">Movie Description:</string>
+</resources>

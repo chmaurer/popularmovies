@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="SortOrder">
+        <item>@string/sortOrderPopularity</item>
+        <item>@string/sortOrderHighestRating</item>
+    </string-array>
+    <string-array name="SortOrderVals">
+        <item>@string/sortOrderPopularity</item>
+        <item>@string/sortOrderHighestRating</item>
+    </string-array>
+</resources>
