@@ -27,13 +27,14 @@ public class Movie implements Parcelable {
     private String release_date;
     private String popularity;
     private List<Trailer> movieTrailers;
+    private Boolean favoriteMovie=Boolean.FALSE;
 
     public Movie () {
     }
 
     // Parcelling part
     public Movie (Parcel in) {
-        String[] data = new String[7];
+        String[] data = new String[8];
         in.readStringArray (data);
         //  Movie m = in.readParcelable (Movie.class.getClassLoader ());
         this.original_title = data[0];
@@ -43,18 +44,20 @@ public class Movie implements Parcelable {
         this.release_date = data[4];
         this.popularity = data[5];
         this.id = data[6];
-       /*
-        this.id = m.getId ();
-        this.original_title = m.getOriginal_title ();
-        this.overview = m.getOverview ();
-        this.poster_path = m.getPoster_path ();
-        this.vote_average = m.getVote_average ();
-        this.release_date = m.getRelease_date ();
-        this.popularity = m.getPopularity ();*/
+        this.favoriteMovie = new Boolean (data[7]);
+
         List<Trailer> trailers = new ArrayList<> ();
         in.readList (trailers, Trailer.class.getClassLoader ());
         this.movieTrailers = trailers;
 
+    }
+
+    public Boolean getFavoriteMovie () {
+        return favoriteMovie;
+    }
+
+    public void setFavoriteMovie (Boolean favoriteMovie) {
+        this.favoriteMovie = favoriteMovie;
     }
 
     public String getOriginal_title () {
@@ -131,7 +134,7 @@ public class Movie implements Parcelable {
     }
 
     @Override public void writeToParcel (Parcel dest, int flags) {
-        dest.writeStringArray (new String[]{this.original_title, this.overview, this.poster_path, this.vote_average, this.release_date, this.popularity, this.id});
+        dest.writeStringArray (new String[]{this.original_title, this.overview, this.poster_path, this.vote_average, this.release_date, this.popularity, this.id, this.favoriteMovie.toString ()});
         dest.writeList (this.getMovieTrailers ());
     }
 }

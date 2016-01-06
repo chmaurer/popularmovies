@@ -11,6 +11,8 @@ import android.widget.ImageButton;
 import com.chmaurer.android.popularmovies.data.Trailer;
 import com.squareup.picasso.Picasso;
 
+import org.apache.commons.collections4.CollectionUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +38,7 @@ public class TrailerAdapter extends BaseAdapter {
     }
 
     public int getCount () {
-        return trailers.size ();
+        return CollectionUtils.size (trailers);
     }
 
     public Object getItem (int position) {

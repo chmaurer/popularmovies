@@ -3,6 +3,7 @@ package com.chmaurer.android.popularmovies.data;
 import android.annotation.TargetApi;
 import android.content.ContentProvider;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -33,7 +34,12 @@ public class MovieProvider extends ContentProvider {
                 MovieContract.MovieEntry.COLUMN_ID + " = " + MovieContract.FavouriteMovieEntry.TABLE_NAME + "." + MovieContract.FavouriteMovieEntry.COLUMN_MOVIE_ID);
     }
 
+    private Context context;
     private MovieDbHelper mOpenHelper;
+
+    public MovieProvider (Context c) {
+        context = c;
+    }
 
     static UriMatcher buildUriMatcher () {
         // I know what you're thinking.  Why create a UriMatcher when you can use regular
@@ -70,7 +76,7 @@ public class MovieProvider extends ContentProvider {
         here.
      */
     @Override public boolean onCreate () {
-        mOpenHelper = new MovieDbHelper (getContext ());
+        mOpenHelper = new MovieDbHelper (context);
         return true;
     }
 
@@ -112,7 +118,29 @@ public class MovieProvider extends ContentProvider {
         return retCursor;
     }
 
+    public boolean isFavorite (Movie movie) {
+        Cursor retCursor;
+        if (mOpenHelper == null) {
+            onCreate ();
+        }
+        retCursor = mOpenHelper.getReadableDatabase ().query (MovieContract.MovieEntry.TABLE_NAME, null, MovieContract.MovieEntry.COLUMN_ID + "=?", new String[]{movie.getId ()}, null, null, null);
+        return retCursor.moveToFirst ();
+    }
+
+    public boolean insert (Movie movie) {
+        if (mOpenHelper == null) {
+            onCreate ();
+        }
+        final SQLiteDatabase db = mOpenHelper.getWritableDatabase ();
+        ContentValues contentValues = new ContentValues ();
+        contentValues.put (MovieContract.MovieEntry.COLUMN_ID, movie.getId ());
+        return db.insert (MovieContract.MovieEntry.TABLE_NAME, null, contentValues) > 0;
+    }
+
     @Override public Uri insert (Uri uri, ContentValues values) {
+        if (mOpenHelper == null) {
+            onCreate ();
+        }
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase ();
         final int match = sUriMatcher.match (uri);
         Uri returnUri;
@@ -141,6 +169,14 @@ public class MovieProvider extends ContentProvider {
         }
         getContext ().getContentResolver ().notifyChange (uri, null);
         return returnUri;
+    }
+
+    public boolean delete (Movie movie) {
+        if (mOpenHelper == null) {
+            onCreate ();
+        }
+        final SQLiteDatabase db = mOpenHelper.getWritableDatabase ();
+        return db.delete (MovieContract.MovieEntry.TABLE_NAME, MovieContract.MovieEntry.COLUMN_ID + "=?", new String[]{movie.getId ()}) > 0;
     }
 
     @Override public int delete (Uri uri, String selection, String[] selectionArgs) {

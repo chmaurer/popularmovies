@@ -11,13 +11,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.chmaurer.android.popularmovies.data.Movie;
+import com.chmaurer.android.popularmovies.data.MovieProvider;
 import com.chmaurer.android.popularmovies.data.Trailer;
+
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +31,7 @@ import java.util.List;
  Created by Christian on 11.10.2015.
  */
 public class DetailActivity extends AppCompatActivity {
+
     public static List<Button> getListOfMovieTrailerButtons (Movie m, Context c) {
         List<Button> buttons = new ArrayList<> ();
         for (Trailer t : m.getMovieTrailers ()) {
@@ -73,18 +79,18 @@ public class DetailActivity extends AppCompatActivity {
         static final String DETAIL_URI = "Movie";
 
         @Override public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            Movie movie = null;
+            Movie mov = null;
             Bundle arguments = getArguments ();
             if (arguments != null && arguments.getParcelable (DETAIL_URI) != null) {
-                movie = arguments.getParcelable (DETAIL_URI);
+                mov = arguments.getParcelable (DETAIL_URI);
             } else {
                 Intent intent = getActivity ().getIntent ();
                 if (intent != null && intent.hasExtra ("Movie")) {
-                    movie = intent.getExtras ().getParcelable ("Movie");
+                    mov = intent.getExtras ().getParcelable ("Movie");
                 }
             }
             View rootView = inflater.inflate (R.layout.fragment_detail, container, false);
-
+            final Movie movie = mov;
             if (movie != null) {
                 TextView textViewMovieDetailTitle = (TextView) rootView.findViewById (R.id.movieDetailTitle);
                 textViewMovieDetailTitle.setText (movie.getOriginal_title ());
@@ -98,12 +104,34 @@ public class DetailActivity extends AppCompatActivity {
                 ImageAdapter.fetchMovieImageForImageView (imageViewMovieDetailImage, movie);
                 ListView listView = (ListView) rootView.findViewById (R.id.listViewTrailers);
                 TrailerAdapter trailerAdapter = new TrailerAdapter (getContext (), inflater, movie.getMovieTrailers ());
-                listView.setLayoutParams (new LinearLayout.LayoutParams (ViewGroup.LayoutParams.FILL_PARENT, 200 * movie.getMovieTrailers ().size ()));
+                listView.setLayoutParams (new LinearLayout.LayoutParams (ViewGroup.LayoutParams.FILL_PARENT, 100 * CollectionUtils.size (movie.getMovieTrailers ())));
                 listView.setAdapter (trailerAdapter);
                 TextView reviewTextField = (TextView) rootView.findViewById (R.id.movieUserReview);
                 // ReviewAdapter reviewAdapter = new ReviewAdapter (getContext (), inflater);
                 new ReviewApiService (reviewTextField, getResources (), getContext (), movie).execute ();
-
+                ToggleButton favButton = (ToggleButton) rootView.findViewById (R.id.buttonAddAsFavourite);
+                MovieProvider movieProvider = new MovieProvider (getContext ());
+                favButton.setChecked (movieProvider.isFavorite (movie));
+                if (favButton.isChecked ()) {
+                    favButton.setText (getResources ().getString (R.string.removeFavourite));
+                } else {
+                    favButton.setText (getResources ().getString (R.string.addFavorite));
+                }
+                favButton.setTextOff (getResources ().getString (R.string.addFavorite));
+                favButton.setTextOn (getResources ().getString (R.string.removeFavourite));
+                favButton.setOnCheckedChangeListener (new CompoundButton.OnCheckedChangeListener () {
+                    public void onCheckedChanged (CompoundButton buttonView, boolean isChecked) {
+                        MovieProvider movieProvider = new MovieProvider (getContext ());
+                        if (isChecked) {
+                            movieProvider.insert (movie);
+                        } else {
+                            movieProvider.delete (movie);
+                        }
+                    }
+                });
+                //   if (movie.getFavoriteMovie () != null && Boolean.TRUE.equals (movie.getFavoriteMovie ())) {
+                //      favButton.setChecked (movie.getFavoriteMovie ());
+                // }
             }
             return rootView;
         }

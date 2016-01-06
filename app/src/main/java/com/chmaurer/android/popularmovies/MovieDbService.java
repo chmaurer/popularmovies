@@ -43,7 +43,7 @@ public class MovieDbService extends AsyncTask<String, Void, List<Movie>> {
     @Override protected List<Movie> doInBackground (String... params) {
         // These two need to be declared outside the try/catch
         // so that they can be closed in the finally block.
-        MovieApiService apiService = new MovieApiService (mResources);
+        MovieApiService apiService = new MovieApiService (mResources, mContext);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences (mContext);
         return apiService.getMovieList (translateSortOrder (prefs.getString (mContext.getString (R.string.key_sort_order), mContext.getString (R.string.default_key_sort_order))));
 

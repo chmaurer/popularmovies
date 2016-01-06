@@ -3,9 +3,11 @@
     <string-array name="SortOrder">
         <item>@string/sortOrderPopularity</item>
         <item>@string/sortOrderHighestRating</item>
+        <item>@string/sortOrderFavorites</item>
     </string-array>
     <string-array name="SortOrderVals">
         <item>@string/sortOrderPopularity</item>
         <item>@string/sortOrderHighestRating</item>
+        <item>@string/sortOrderFavorites</item>
     </string-array>
 </resources>
