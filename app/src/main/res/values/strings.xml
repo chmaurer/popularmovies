@@ -9,4 +9,6 @@
     <string name="movieRating">Movie Rating:</string>
     <string name="movieReleaseDate">Movie Release Date:</string>
     <string name="movieDescription">Movie Description:</string>
+    <string name="movieTrailers">Movie Trailers:</string>
+    <string name="userReviews">User Reviews:</string>
 </resources>

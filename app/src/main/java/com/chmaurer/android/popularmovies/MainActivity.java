@@ -47,6 +47,7 @@ import android.view.MenuItem;
  * Image Adapter from https://github.com/isbjorn/udacity-Popular-Movies-App/blob/master/app/src/main/java/io/maritimus/sofaexpert/ImageAdapter.java
  * Layout Span: http://stackoverflow.com/questions/2710793/what-is-the-equivalent-of-colspan-in-an-android-tablelayout
  * Textview Multiline / Line Breaks: http://stackoverflow.com/questions/6674578/multiline-textview-in-android and http://stackoverflow.com/questions/2197744/android-textview-text-not-getting-wrapped and http://stackoverflow.com/questions/5230290/android-and-displaying-multi-lined-text-in-a-textview-in-a-tablerow
+
  */
 
 
@@ -110,7 +111,69 @@ import android.view.MenuItem;
  * from http://developer.android.com/training/sharing/shareaction.html and https://www.udacity.com/course/viewer#!/c-ud853-nd/l-1474559101/e-1480808726/m-1643578595-->
  * as in solution from https://www.udacity.com/course/viewer#!/c-ud853-nd/l-1474559101/e-1480808722/m-1480808725
  * list preference implementation taken from http://stackoverflow.com/questions/9880841/using-list-preference-in-android
+ * http://stackoverflow.com/questions/18368748/android-studio-module-wont-show-up-in-edit-configuration (problems after checkout of sunshine)
+ * http://stackoverflow.com/questions/25104392/android-studio-no-module (problems after checkout of sunshine)
+ * http://stackoverflow.com/questions/19272127/sdk-location-not-found-android-studio-gradle
+ Problems importing project to android studio
+ * https://teamtreehouse.com/community/inserting-the-parsecom-files-in-android-studio
+ * http://stackoverflow.com/questions/24298896/android-studio-error-8-0-plugin-with-id-android-not-found
+ * https://www.google.com/search?q=plugin+with+id+com.parse+not+found&ie=utf-8&oe=utf-8
+ * http://stackoverflow.com/questions/19272127/sdk-location-not-found-android-studio-gradle
+ * https://www.google.com/search?q=sdk+location+not+found&ie=utf-8&oe=utf-8
+ * http://stackoverflow.com/questions/25172006/android-studio-build-fails-with-task-not-found-in-root-project-myproject
+ * https://www.google.com/search?q=cannot+get+property+compileSdkVersion&ie=utf-8&oe=utf-8#q=task+compile+debug+source+not+found
+ * https://www.google.com/search?q=cannot+get+property+compileSdkVersion&ie=utf-8&oe=utf-8#q=task+compliledebugsources+not+found
+ * http://parse-android.s3.amazonaws.com/fb48e439390e00760cb88b07285f79ba/Parse-Starter-Project-1.10.3.zip
+ * https://discuss.gradle.org/t/getting-android-compilesdkversion-is-missing-error-gradle-build/9858/8
+ * https://discuss.gradle.org/t/getting-android-compilesdkversion-is-missing-error-gradle-build/9858/7
+ * https://discuss.gradle.org/t/getting-android-compilesdkversion-is-missing-error-gradle-build/9858/6
+ * https://discuss.gradle.org/t/getting-android-compilesdkversion-is-missing-error-gradle-build/9858/4
+ * https://discuss.gradle.org/t/getting-android-compilesdkversion-is-missing-error-gradle-build/9858/3
+ * https://discuss.gradle.org/t/getting-android-compilesdkversion-is-missing-error-gradle-build/9858
+ * http://stackoverflow.com/questions/31045058/error-cannot-get-property-compilesdkversion-on-extra-properties-extension-as
+ * http://android.techjaffa.info/tag/exist-error-cannot-get-property-compilesdkversion-on-extra-properties-extension-as-it-does-not/
+ * https://github.com/ParsePlatform/ParseUI-Android/issues/8
+ * http://stackoverflow.com/questions/28319365/error-package-android-support-v7-app-does-not-exist-android-studio
+ * http://stackoverflow.com/questions/18299898/the-import-android-support-cannot-be-resolved
+ * Parts from the sunshine project in all lessons up until now and parts from the github repo
+ * http://developer.android.com/reference/android/content/UriMatcher.html
+ * http://developer.android.com/guide/components/loaders.html
+ * http://developer.android.com/reference/android/content/CursorLoader.html
+ * http://developer.android.com/reference/android/provider/MediaStore.Audio.Media.html
+ * http://stackoverflow.com/questions/26983905/android-programming-making-a-uri-to-get-audio-location
+ * https://developer.android.com/design/material/index.html
+ * http://www.google.com/design/spec/material-design/introduction.html#introduction-goals
+ * http://developer.android.com/guide/topics/ui/layout/linear.html#Weight
+ * https://gist.github.com/udacityandroid/a86d966f3f4105a22ac3#file-strings-xml
+ * http://developer.android.com/guide/components/fragments.html
+ * http://developer.android.com/reference/android/app/FragmentManager.html/
+ * http://developer.android.com/reference/android/app/FragmentTransaction.html
+ * https://github.com/udacity/Sunshine-Version-2/blob/5.09_two_pane_ui/app/src/main/res/layout-sw600dp/activity_main.xml
+ * https://github.com/udacity/Sunshine-Version-2/blob/5.09_two_pane_ui/app/src/main/res/layout/activity_main.xml
+ * https://github.com/udacity/Sunshine-Version-2/blob/5.09_two_pane_ui/app/src/main/res/layout/activity_detail.xml
+ * https://github.com/udacity/Sunshine-Version-2/compare/5.08_images...5.09_two_pane_ui
+ * https://gist.github.com/udacityandroid/41f9e52a36e88388624d
+ * http://developer.android.com/reference/android/app/Fragment.html
+ * http://developer.android.com/reference/android/widget/AbsListView.html#setChoiceMode%28int%29
+ * https://gist.github.com/udacityandroid/0c906a3bdb9f518bab8f
+ * http://developer.android.com/guide/topics/ui/themes.html
+ * http://developer.android.com/training/multiscreen/screensizes.html#TaskUseAliasFilters
+ * https://github.com/udacity/Sunshine-Version-2/compare/5.14_today_item_tablet...5.15_action_bar
+ * https://gist.github.com/udacityandroid/1c799806f0e519015125
+ * https://github.com/udacity/Sunshine-Version-2/tree/5.17_redlines_list_item/app/src/main/res/layout
+ * https://github.com/udacity/Sunshine-Version-2/compare/5.16_settings_action_bar...5.17_redlines_list_item
+ * http://stackoverflow.com/questions/11692162/android-change-background-color-of-fragment
+ * http://stackoverflow.com/questions/5350624/set-icon-for-android-application
+ * https://github.com/udacity/Sunshine-Version-2/compare/5.17_redlines_list_item...5.18_redlines_finish
+ * http://stackoverflow.com/questions/23330816/error-package-android-support-v7-app-does-not-exist
+ * https://blog.xamarin.com/android-tips-hello-appcompatactivity-goodbye-actionbaractivity/
+ * http://developer.android.com/tools/support-library/features.html#v7-appcompat
+ * http://developer.android.com/tools/support-library/index.html
+ * http://developer.android.com/tools/revisions/build-tools.html
+ * http://stackoverflow.com/questions/17954596/how-to-draw-circle-by-canvas-in-android
+ * https://gist.github.com/qihnus/1909616
  */
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -118,8 +181,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
     }
 
     @Override
