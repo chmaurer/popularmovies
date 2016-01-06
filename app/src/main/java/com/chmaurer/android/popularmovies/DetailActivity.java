@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,18 +17,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.chmaurer.android.popularmovies.data.Movie;
-import com.chmaurer.android.popularmovies.data.Review;
-import com.chmaurer.android.popularmovies.data.ReviewResults;
 import com.chmaurer.android.popularmovies.data.Trailer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import retrofit.Call;
-import retrofit.GsonConverterFactory;
-import retrofit.Retrofit;
-import retrofit.RxJavaCallAdapterFactory;
 
 /**
  Created by Christian on 11.10.2015.
@@ -49,7 +40,11 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.activity_detail);
         if (savedInstanceState == null) {
-            getSupportFragmentManager ().beginTransaction ().add (R.id.container, new PlaceholderFragment ()).commit ();
+            Bundle arguments = new Bundle ();
+            arguments.putParcelable (PlaceholderFragment.DETAIL_URI, getIntent ().getData ());
+            PlaceholderFragment fragment = new PlaceholderFragment ();
+            fragment.setArguments (arguments);
+            getSupportFragmentManager ().beginTransaction ().add (R.id.movieDetailContainer, fragment).commit ();
         }
     }
 
@@ -75,14 +70,22 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     public static class PlaceholderFragment extends Fragment {
+        static final String DETAIL_URI = "Movie";
+
         @Override public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+            Movie movie = null;
+            Bundle arguments = getArguments ();
+            if (arguments != null && arguments.getParcelable (DETAIL_URI) != null) {
+                movie = arguments.getParcelable (DETAIL_URI);
+            } else {
+                Intent intent = getActivity ().getIntent ();
+                if (intent != null && intent.hasExtra ("Movie")) {
+                    movie = intent.getExtras ().getParcelable ("Movie");
+                }
+            }
             View rootView = inflater.inflate (R.layout.fragment_detail, container, false);
-            Intent intent = getActivity ().getIntent ();
 
-            if (intent != null && intent.hasExtra ("Movie")) {
-
-                Movie movie = intent.getExtras ().getParcelable ("Movie");
+            if (movie != null) {
                 TextView textViewMovieDetailTitle = (TextView) rootView.findViewById (R.id.movieDetailTitle);
                 textViewMovieDetailTitle.setText (movie.getOriginal_title ());
                 TextView textViewMovieDetailRating = (TextView) rootView.findViewById (R.id.movieDetailRating);
@@ -93,51 +96,15 @@ public class DetailActivity extends AppCompatActivity {
                 textViewMovieDetailReleaseDate.setText (movie.getRelease_date ());
                 ImageView imageViewMovieDetailImage = (ImageView) rootView.findViewById (R.id.movieDetailImage);
                 ImageAdapter.fetchMovieImageForImageView (imageViewMovieDetailImage, movie);
-                //add the movie trailers to the scrollview
                 ListView listView = (ListView) rootView.findViewById (R.id.listViewTrailers);
-                //ArrayAdapter<Button> buttonAdapter = new ArrayAdapter<> (getActivity (), android.R.layout.simple_list_item_1, getListOfMovieTrailerButtons (movie, getActivity ()));
                 TrailerAdapter trailerAdapter = new TrailerAdapter (getContext (), inflater, movie.getMovieTrailers ());
                 listView.setLayoutParams (new LinearLayout.LayoutParams (ViewGroup.LayoutParams.FILL_PARENT, 200 * movie.getMovieTrailers ().size ()));
                 listView.setAdapter (trailerAdapter);
-                ListView reviewListView = (ListView) rootView.findViewById (R.id.listViewReviews);
-                Retrofit retrofit = new Retrofit.Builder ().baseUrl (ApiServiceHelper.API_PREFIX).addCallAdapterFactory (RxJavaCallAdapterFactory.create ())
-                                                           .addConverterFactory (GsonConverterFactory.create ()).build ();
-                IReviewApiService service = retrofit.create (IReviewApiService.class);
-                Call<ReviewResults> reviews = service.getReviews (movie.getId (), getResources ().getStringArray (R.array.key)[0]);
-                try {
-                    ReviewResults r = reviews.execute ().body ();
-                    List<Review> reviewsList = Arrays.asList (r.getResults ());
-                    List<String> reviewsAsString = new ArrayList<> ();
-                    for (Review review : reviewsList) {
-                        StringBuffer buf = new StringBuffer ();
-                        buf.append (review.getContent ()).append (" [").append (review.getAuthor ()).append ("]");
-                        reviewsAsString.add (buf.toString ());
-                    }
-                    ArrayAdapter<String> reviewAdapter = new ArrayAdapter<String> (getActivity (), android.R.layout.simple_list_item_1, reviewsAsString);
-                    reviewListView.setAdapter (reviewAdapter);
-                }
-                catch (Exception e) {
+                TextView reviewTextField = (TextView) rootView.findViewById (R.id.movieUserReview);
+                // ReviewAdapter reviewAdapter = new ReviewAdapter (getContext (), inflater);
+                new ReviewApiService (reviewTextField, getResources (), getContext (), movie).execute ();
 
-                }
-
-                //listView.setAdapter (buttonAdapter);
-              /*  for (Trailer trailer : movie.getMovieTrailers ()) {
-                                       VideoView videoView = new VideoView (getActivity ());
-                    TrailerAdapter.fetchMoviePreviewImageForTrailer (videoView, trailer);
-                    gridView.addView (videoView, 0);
-                    gridView.setAdapter (trailerAdapter);
-                    gridView.setOnItemClickListener (new AdapterView.OnItemClickListener () {
-                        public void onItemClick (AdapterView<?> parent, View v, int position, long id) {
-                            Intent launchMoviePlayer = new Intent ();
-                            launchMoviePlayer.setAction (Intent.ACTION_VIEW);
-                            launchMoviePlayer.setData (((Trailer) parent.getAdapter ().getItem (position)).getTrailerUri ());
-                            startActivity (launchMoviePlayer);
-                        }
-                    });
-                }
-            */
             }
-
             return rootView;
         }
     }

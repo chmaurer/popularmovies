@@ -4,4 +4,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="detail_textview_gap">6dp</dimen>
     <dimen name="detail_tablerow_gap">10dp</dimen>
+    <dimen name="userReviewText">5dp</dimen>
+    <dimen name="userReviewTextGap">30dp</dimen>
 </resources>

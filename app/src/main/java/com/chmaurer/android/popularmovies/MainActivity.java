@@ -6,48 +6,50 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.chmaurer.android.popularmovies.data.Movie;
 /**
- * All Sources go here:
- * ====================
- * <p/>
- * For project setup and implementation hints:
- * https://docs.google.com/document/d/1ZlN1fUsCSKuInLECcJkslIqvpKlP7jWL2TP9m6UiA6I/pub?embedded=true (udacity implementation guide)
- * https://www.udacity.com/course/viewer#!/c-nd801/l-4256658707/m-4283743583 (udacity requirements page)
- * Using the sunshine project done in Udacity Lessons for various implementation hints (Lessons 1-3) and the websites stated in Sunshine Project
- * https://jsonformatter.curiousconcept.com/ (for json parsing)
- * <p/>
- * For storing the API Key
- * https://developer.android.com/samples/MediaRouter/res/values/arrays.html for Arrays.xml (I store my api key there and do not add the arrays.xml to git)
- * <p/>
- * For the UI parts
- * http://developer.android.com/guide/topics/ui/layout/gridview.html (For the grid view)
- * <p/>
- * For the data retrieval
- * https://www.themoviedb.org/documentation/api
- * https://www.themoviedb.org/documentation/api/discover
- * https://gist.github.com/baderj/7414775
- * Using the sunshine project done in Udacity Lessons for various implementation hints (Lessons 1-3)
- * from http://developer.android.com/guide/topics/resources/more-resources.html (Api key)
- * http://stackoverflow.com/questions/18280194/using-themoviedb-to-display-image-poster-with-php
- * how to parse JSON to List of Movies taken from sunshine app
- * <p/>
- * Other stuff:
- * Reflection from http://stackoverflow.com/questions/160970/how-do-i-invoke-a-java-method-when-given-the-method-name-as-a-string
- * CollectionUtils in android http://stackoverflow.com/questions/30259141/how-to-add-apache-commons-collections-in-android-studio-gradle
- * List conversion http://stackoverflow.com/questions/10975913/how-to-make-a-new-list-with-a-property-of-an-object-which-is-in-another-list
- * Beanutils https://commons.apache.org/proper/commons-beanutils/apidocs/org/apache/commons/beanutils/BeanToPropertyValueTransformer.html and http://mvnrepository.com/artifact/commons-beanutils/commons-beanutils/1.8.3#gradle
- * Movies Thumbnail taken from http://de.freeimages.com/photo/film-1568846
- * Internet permission: http://developer.android.com/reference/android/Manifest.permission.html and http://stackoverflow.com/questions/2169294/how-to-add-manifest-permission-to-android-application
- * NetworkOnMainThread: http://stackoverflow.com/questions/6343166/android-os-networkonmainthreadexception
- * Image from URL https://forums.xamarin.com/discussion/4323/image-from-url-in-imageview
- * StringUtils http://mvnrepository.com/artifact/org.apache.commons/commons-lang3/3.0
- * Hint from Android Studio to exclude 'META-INF/NOTICE.txt' and 'META-INF/LICENSE.txt' in gradle.build File
- * Parcelable intent http://stackoverflow.com/questions/2139134/how-to-send-an-object-from-one-android-activity-to-another-using-intents
- * Parcelling from http://stackoverflow.com/questions/7181526/how-can-i-make-my-custom-objects-be-parcelable and http://techdroid.kbeanie.com/2010/06/parcelable-how-to-do-that-in-android.html
- * Image Adapter from https://github.com/isbjorn/udacity-Popular-Movies-App/blob/master/app/src/main/java/io/maritimus/sofaexpert/ImageAdapter.java
- * Layout Span: http://stackoverflow.com/questions/2710793/what-is-the-equivalent-of-colspan-in-an-android-tablelayout
- * Textview Multiline / Line Breaks: http://stackoverflow.com/questions/6674578/multiline-textview-in-android and http://stackoverflow.com/questions/2197744/android-textview-text-not-getting-wrapped and http://stackoverflow.com/questions/5230290/android-and-displaying-multi-lined-text-in-a-textview-in-a-tablerow
-
+ All Sources go here:
+ ====================
+ <p/>
+ For project setup and implementation hints:
+ https://docs.google.com/document/d/1ZlN1fUsCSKuInLECcJkslIqvpKlP7jWL2TP9m6UiA6I/pub?embedded=true (udacity implementation guide)
+ https://www.udacity.com/course/viewer#!/c-nd801/l-4256658707/m-4283743583 (udacity requirements page)
+ Using the sunshine project done in Udacity Lessons for various implementation hints (Lessons 1-3) and the websites stated in Sunshine Project
+ https://jsonformatter.curiousconcept.com/ (for json parsing)
+ <p/>
+ For storing the API Key
+ https://developer.android.com/samples/MediaRouter/res/values/arrays.html for Arrays.xml (I store my api key there and do not add the arrays.xml to git)
+ <p/>
+ For the UI parts
+ http://developer.android.com/guide/topics/ui/layout/gridview.html (For the grid view)
+ <p/>
+ For the data retrieval
+ https://www.themoviedb.org/documentation/api
+ https://www.themoviedb.org/documentation/api/discover
+ https://gist.github.com/baderj/7414775
+ Using the sunshine project done in Udacity Lessons for various implementation hints (Lessons 1-3)
+ from http://developer.android.com/guide/topics/resources/more-resources.html (Api key)
+ http://stackoverflow.com/questions/18280194/using-themoviedb-to-display-image-poster-with-php
+ how to parse JSON to List of Movies taken from sunshine app
+ <p/>
+ Other stuff:
+ Reflection from http://stackoverflow.com/questions/160970/how-do-i-invoke-a-java-method-when-given-the-method-name-as-a-string
+ CollectionUtils in android http://stackoverflow.com/questions/30259141/how-to-add-apache-commons-collections-in-android-studio-gradle
+ List conversion http://stackoverflow.com/questions/10975913/how-to-make-a-new-list-with-a-property-of-an-object-which-is-in-another-list
+ Beanutils https://commons.apache.org/proper/commons-beanutils/apidocs/org/apache/commons/beanutils/BeanToPropertyValueTransformer.html and
+ http://mvnrepository.com/artifact/commons-beanutils/commons-beanutils/1.8.3#gradle
+ Movies Thumbnail taken from http://de.freeimages.com/photo/film-1568846
+ Internet permission: http://developer.android.com/reference/android/Manifest.permission.html and http://stackoverflow.com/questions/2169294/how-to-add-manifest-permission-to-android-application
+ NetworkOnMainThread: http://stackoverflow.com/questions/6343166/android-os-networkonmainthreadexception
+ Image from URL https://forums.xamarin.com/discussion/4323/image-from-url-in-imageview
+ StringUtils http://mvnrepository.com/artifact/org.apache.commons/commons-lang3/3.0
+ Hint from Android Studio to exclude 'META-INF/NOTICE.txt' and 'META-INF/LICENSE.txt' in gradle.build File
+ Parcelable intent http://stackoverflow.com/questions/2139134/how-to-send-an-object-from-one-android-activity-to-another-using-intents
+ Parcelling from http://stackoverflow.com/questions/7181526/how-can-i-make-my-custom-objects-be-parcelable and http://techdroid.kbeanie.com/2010/06/parcelable-how-to-do-that-in-android.html
+ Image Adapter from https://github.com/isbjorn/udacity-Popular-Movies-App/blob/master/app/src/main/java/io/maritimus/sofaexpert/ImageAdapter.java
+ Layout Span: http://stackoverflow.com/questions/2710793/what-is-the-equivalent-of-colspan-in-an-android-tablelayout
+ Textview Multiline / Line Breaks: http://stackoverflow.com/questions/6674578/multiline-textview-in-android and http://stackoverflow.com/questions/2197744/android-textview-text-not-getting-wrapped and
+ http://stackoverflow.com/questions/5230290/android-and-displaying-multi-lined-text-in-a-textview-in-a-tablerow
  */
 
 
@@ -172,39 +174,111 @@ import android.view.MenuItem;
  * http://developer.android.com/tools/revisions/build-tools.html
  * http://stackoverflow.com/questions/17954596/how-to-draw-circle-by-canvas-in-android
  * https://gist.github.com/qihnus/1909616
- */
+ * For Javadoc Comments http://stackoverflow.com/questions/17291785/how-to-generate-javadoc-comments-in-android-studio
+ * http://stackoverflow.com/questions/29138760/retrofit-android-gson-array-content-deserialization
+ * http://square.github.io/retrofit/
+ * http://stackoverflow.com/questions/24745236/restrofit-deserializing-json-response
+ * http://stackoverflow.com/questions/32269064/unable-to-create-call-adapter-for-class-example-simple
+ * http://stackoverflow.com/questions/29323095/retrofit-call-inside-asynctask
+ * http://stackoverflow.com/questions/33077292/abstractmethoderror-when-using-rxjavacalladapterfactory-on-retrofit-2
+ * http://stackoverflow.com/questions/32367469/unable-to-create-converter-for-my-class-in-android-retrofit-library
+ * http://stackoverflow.com/questions/24154917/retrofit-expected-begin-object-but-was-begin-array
+ * http://stackoverflow.com/questions/25089339/retrofit-returns-an-empty-array
+ * https://www.reddit.com/r/androiddev/comments/2cdgc8/retrofit_returns_an_empty_array/
+ * http://stackoverflow.com/questions/12348627/bad-parcelable-exception
+ * http://stackoverflow.com/questions/7037630/how-to-create-a-video-preview-in-android
+ * http://stackoverflow.com/questions/9739498/android-action-bar-not-showing-overflow
+ * http://stackoverflow.com/questions/6300608/how-to-pass-a-parcelable-object-that-contains-a-list-of-objects
+ * http://stackoverflow.com/questions/7037630/how-to-create-a-video-preview-in-android
+ * http://stackoverflow.com/questions/574195/android-youtube-app-play-video-intent
+ * http://developer.android.com/guide/components/intents-filters.html
+ * http://stackoverflow.com/questions/2139134/how-to-send-an-object-from-one-android-activity-to-another-using-intents
+ * http://stackoverflow.com/questions/16333754/how-to-customize-listview-using-baseadapter
+ * http://stackoverflow.com/questions/2139134/how-to-send-an-object-from-one-android-activity-to-another-using-intents
+ * http://stackoverflow.com/questions/5796611/dialog-throwing-unable-to-add-window-token-null-is-not-for-an-application-wi
+ * http://stackoverflow.com/questions/1996294/problem-unmarshalling-parcelables
+ * http://stackoverflow.com/questions/10552062/badparcelableexception-classnotfoundexception-when-unmarshalling-empty-classn
+ * http://stackoverflow.com/questions/4540754/dynamically-add-elements-to-a-listview-android
+ * http://stackoverflow.com/questions/1851633/how-to-add-a-button-dynamically-in-android
+ * http://stackoverflow.com/questions/8438778/how-to-load-youtube-video-thumbnails-in-android
+ * http://stackoverflow.com/questions/26572048/elevation-on-android-lollipop-not-working
+ * http://stackoverflow.com/questions/11411421/separation-between-rows-in-table-layout
+ * http://stackoverflow.com/questions/14020859/change-height-of-a-listview-dynamicallyandroid
+ * http://stackoverflow.com/questions/6343166/android-os-networkonmainthreadexception
+ * http://stackoverflow.com/questions/9458258/return-value-from-async-task-in-android*/
 
 public class MainActivity extends AppCompatActivity {
+    private static final String DETAILFRAGMENT_TAG = "DFTAG";
+    private boolean mTwoPane;
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public boolean ismTwoPane () {
+        return mTwoPane;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public void setmTwoPane (boolean mTwoPane) {
+        this.mTwoPane = mTwoPane;
+    }
+
+    @Override protected void onCreate (Bundle savedInstanceState) {
+        super.onCreate (savedInstanceState);
+        setContentView (R.layout.activity_main);
+
+        if (findViewById (R.id.movieDetailContainer) != null) {
+            // The detail container view will be present only in the large-screen layouts
+            // (res/layout-sw600dp). If this view is present, then the activity should be
+            // in two-pane mode.
+            mTwoPane = true;
+            // In two-pane mode, show the detail view in this activity by
+            // adding or replacing the detail fragment using a
+            // fragment transaction.
+            if (savedInstanceState == null) {
+                getSupportFragmentManager ().beginTransaction ().replace (R.id.movieDetailContainer, new DetailActivity.PlaceholderFragment (), DETAILFRAGMENT_TAG).commit ();
+            }
+        } else {
+            mTwoPane = false;
+        }
+
+    }
+
+    @Override public boolean onCreateOptionsMenu (Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        getMenuInflater().inflate(R.menu.settings, menu);
+        getMenuInflater ().inflate (R.menu.menu_main, menu);
+        getMenuInflater ().inflate (R.menu.settings, menu);
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+
+    @Override public boolean onOptionsItemSelected (MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        int id = item.getItemId ();
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            startActivity(new Intent(this, SettingsActivity.class));
+            startActivity (new Intent (this, SettingsActivity.class));
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected (item);
+    }
+
+    @Override protected void onResume () {
+        super.onResume ();
+    }
+
+    public void onMovieSelectedCallback (Movie movie) {
+        if (ismTwoPane ()) {
+            Bundle args = new Bundle ();
+            args.putParcelable (DetailActivity.PlaceholderFragment.DETAIL_URI, movie);
+            DetailActivity.PlaceholderFragment fragment = new DetailActivity.PlaceholderFragment ();
+            fragment.setArguments (args);
+            getSupportFragmentManager ().beginTransaction ().replace (R.id.movieDetailContainer, fragment, DETAILFRAGMENT_TAG).commit ();
+        } else {
+            Intent detailIntent = new Intent (this, DetailActivity.class);
+            detailIntent.putExtra ("Movie", movie);
+            startActivity (detailIntent);
+        }
     }
 
 }

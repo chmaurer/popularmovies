@@ -28,6 +28,8 @@ public class Movie implements Parcelable {
     private String popularity;
     private List<Trailer> movieTrailers;
 
+    public Movie () {
+    }
 
     // Parcelling part
     public Movie (Parcel in) {
